@@ -1,27 +1,27 @@
 .header {
   display: flex;
   justify-content: flex-end;
-  list-style: none;
   margin: 0;
   background-color: rgba(106,148,212,0.1);
 }
 
 .header__item {
   border-right: 1px solid #052F6D;
+  background-color: rgba(106,148,212,0.15);
+  padding: 15px;
 }
 
 .header__item:last-child {
   border-right: none;
 }
 
-.header__item button {
-  border: none;
-  background-color: rgba(106,148,212,0.15);
-  padding: 15px;
-}
-
-.header__item button:hover {
+.header__item:hover {
   background-color: rgba(106,148,212,0.6);
   box-shadow: 0px 0px 5px rgba(106,148,212,0.5); 
   cursor: pointer;
+}
+
+.header__item a {
+  text-decoration: none;
+  color: #052F6D;
 }
