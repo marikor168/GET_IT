@@ -1,0 +1,24 @@
+.error__card {
+  width: 90%;
+  height: 107px;
+  border: 1px solid #052F6D;
+  margin: 10px auto;
+  padding: 5px;
+  background-color: #FFF;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.card__title {
+  font-weight: bold;
+  overflow: hidden;
+}
+
+.card__user {
+}
+
+.card__priority {
+  font-size: 12px;
+}

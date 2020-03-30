@@ -1,0 +1,18 @@
+.btn {
+  padding: 15px 20px;
+  border-radius: 5px;
+  background-color: #6A94D4;
+  border: 1px solid #6A94D4;
+  box-shadow: 0 0 5px rgba(5,47,109,0.5); 
+  color: #FFF;
+  min-width: 140px;
+}
+
+.form__btn {  
+  display: block;
+  margin: 45px auto 10px auto;
+}
+
+.btn:hover {
+  box-shadow: 3px 3px 10px rgba(5,47,109,0.5); 
+}

@@ -1,0 +1,25 @@
+.table {
+  margin: 40px auto;
+  border-spacing: 5px;
+  border: 1px solid #052F6D;
+  box-shadow: 5px 5px 5px rgba(106,148,212,0.5); 
+  width: 90%;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.table__title {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+th, td, tr {
+  border: 1px solid #052F6D;
+  padding: 10px;
+}
+
+th {
+  background-color: #6a94d4;
+  color: #FFF;
+}
+
