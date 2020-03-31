@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 import Input from '../input/';
 import Button from '../button/';
@@ -7,40 +8,35 @@ import BasicForm from '../basic-form/';
 
 import './login-form.css';
 
-export default class LoginForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLogged: false,
-      userName: null
-    };
+const LoginForm = ({ isLoggedIn, onLogin, username, onUsernameChange }) => {
+
+  if(isLoggedIn) {
+    return <Redirect to="/kanban" />
   }
 
-  logIn = () => {
-    this.setState({
-      isLogged: true
-    });
-    console.log(this.state.isLogged)
-  };
+  return (
+    <div className="wrapper">
+      <BasicForm classNameFieldset="loginForm__wrapper"
+                  classNameLegend="loginForm__legend"
+                  value="Вход в систему"
+                  onSubmit={ onLogin }>
+        <FormItem>
+          <Input 
+            type="text" 
+            name="username" 
+            placeholder="Пользователь"
+            onChange={ onUsernameChange }
+            required />
+        </FormItem>
 
-  render() {
-    const { logIn } = this.state;
-      return (
-        <div className="wrapper">
-          <BasicForm classNameFieldset="loginForm__wrapper"
-                      classNameLegend="loginForm__legend"
-                      value="Вход в систему">
-            <FormItem>
-              <Input type="text" name="login" placeholder="Пользователь" required/>
-            </FormItem>
+        <FormItem>
+          <Input type="password" name="password" placeholder="Пароль" required/>
+        </FormItem>
 
-            <FormItem>
-              <Input type="password" name="password" placeholder="Пароль" required/>
-            </FormItem>
-
-            <Button onClick={ logIn } value='Войти'/>
-          </BasicForm>
-        </div>
-      );
-    }
+        <Button value='Войти'/>
+      </BasicForm>
+    </div>
+  );
 };
+
+export default LoginForm;

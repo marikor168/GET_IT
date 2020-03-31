@@ -13,21 +13,55 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLogged: false
+      isLoggedIn: false,
+      username: 'Guest'
     };
   }
+
+  onLogin = (event) => {
+    event.preventDefault();
+
+    this.setState({
+      isLoggedIn: true,
+      username: this.state.username
+    });
+  };
+
+  onUsernameChange = (event) => {
+    this.setState({
+      username: event.target.value
+    });
+  };
+
+  onLogout = () => {
+    this.setState({
+      isLoggedIn: false,
+      username: 'Guest'
+    });
+  };
+
   render() {
+    const { isLoggedIn, username } = this.state;
     return (
       <Router>
-        <Header />
+        <Header onLogout={ this.onLogout }  username={ username }/>
         <Switch>
-          <Route path="/login" component={ LoginForm } />
-          <Route exact path="/new_error">
-            <ErrorForm />
+          <Route 
+            path="/login"
+            render={() => <LoginForm 
+                            isLoggedIn={ isLoggedIn } 
+                            onLogin={ this.onLogin } 
+                            username={ username }
+                            onUsernameChange={ this.onUsernameChange} /> }
+          >
+          </Route>  
+          <Route exact path="/errors/:id">
+            <ErrorForm isLoggedIn={ isLoggedIn }/>
             <Table />
           </Route>
-          <Route exact path="/kanban" component={ Kanban } />
-          <Route path="/" component={ LoginForm } />
+          <Route path="/kanban" 
+                render={() => <Kanban isLoggedIn = { isLoggedIn } />} />
+          <Route path="/" component={ Kanban } />
         </Switch>
       </Router>
     );

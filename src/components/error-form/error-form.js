@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 import Button from '../button/';
 import FormItem from '../form-item';
@@ -11,7 +12,7 @@ import { errorData } from '../app/data';
 
 import './error-form.css';
 
-const ErrorForm = () => {
+const ErrorForm = ({ isLoggedIn }) => {
 
   let element;
   const elements = errorData.map((item) => {
@@ -30,19 +31,23 @@ const ErrorForm = () => {
         <FormLabel htmlFor={htmlFor} value={value} />
         {element}
       </FormItem>
-    );
+    );   
   });
 
-  return (
-    <BasicForm classNameFieldset="form__wrapper" 
-                classNameLegend="form__legend"
-                value="Ошибка (создание/редактирование)">
-      
-      { elements }      
+  if(isLoggedIn) {
+    return (
+      <BasicForm classNameFieldset="form__wrapper" 
+                  classNameLegend="form__legend"
+                  value="Ошибка (создание/редактирование)">
+        
+        { elements }      
+  
+        <Button value='Сохранить изменения'/>
+      </BasicForm>
+    );
+  }
 
-      <Button value='Сохранить изменения'/>
-    </BasicForm>
-  );
+  return <Redirect to="/login" />;
 };
 
 export default ErrorForm;

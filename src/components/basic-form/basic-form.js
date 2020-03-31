@@ -2,9 +2,9 @@ import React from 'react';
 
 import './basic-form.css';
 
-const BasicForm = ( {classNameFieldset, classNameLegend, value, children} ) => {
+const BasicForm = ( {classNameFieldset, classNameLegend, value, children, onSubmit } ) => {
   return (
-    <form>
+    <form onSubmit={ onSubmit }>
       <fieldset className={classNameFieldset}>
       <legend className={classNameLegend}>{value}</legend>
         { children }
