@@ -25,12 +25,11 @@ const LoginForm = ({ isLoggedIn, onLogin, username, onUsernameChange }) => {
             type="text" 
             name="username" 
             placeholder="Пользователь"
-            onChange={ onUsernameChange }
-            required />
+            onChange={ onUsernameChange }/>
         </FormItem>
 
         <FormItem>
-          <Input type="password" name="password" placeholder="Пароль" required/>
+          <Input type="password" name="password" placeholder="Пароль"/>
         </FormItem>
 
         <Button value='Войти'/>

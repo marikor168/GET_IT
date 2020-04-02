@@ -1,30 +1,34 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import ErrorCard from '../error-card/';
 import { errors } from '../app/data';
 
 import './kanban.css';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 const Kanban = ({ isLoggedIn }) => {
 
-  const newErrors = [];
-  const openedErrors = [];
-  const resolvedErrors = [];
-  const closedErrors = []; 
+  let newErrors = [];
+  let openedErrors = [];
+  let resolvedErrors = [];
+  let closedErrors = []; 
 
   errors.forEach((item) => {
-    if (item.status === "Новая") {
+    if (item.status === "new") {
       newErrors.push(item)
-    } else if (item.status === "Открытая") {
+    } else if (item.status === "opened") {
       openedErrors.push(item)
-    } else if (item.status === "Решённая") {
+    } else if (item.status === "resolved") {
       resolvedErrors.push(item)
     } else {
       closedErrors.push(item)
     }
   });
+
+  newErrors = filterCurrentError(newErrors);
+  openedErrors = filterCurrentError(openedErrors);
+  resolvedErrors = filterCurrentError(resolvedErrors);
+  closedErrors = filterCurrentError(closedErrors);
 
   if(isLoggedIn) {
     return(
@@ -59,9 +63,20 @@ const Kanban = ({ isLoggedIn }) => {
 };
 
 function createErrorCard (arr) {
-  return arr.map((error) =>
-    <ErrorCard key={error.id} title={error.error_name} user={error.user} priority={error.priority}/>
-  )
-}
+  return arr.map((error) => {
+    const path = `/new_error/${error.id}`;
+    return(
+    <Link to={path} key={error.id}>
+      <ErrorCard  title={error.error_name} user={error.user} priority={error.priority}/>
+    </Link>
+  );
+  });
+};
+
+function filterCurrentError(arr) {
+  return arr.filter((error) => error.current === true);
+};
+
 export default Kanban;
+
 

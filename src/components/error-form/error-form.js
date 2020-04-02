@@ -12,18 +12,18 @@ import { errorData } from '../app/data';
 
 import './error-form.css';
 
-const ErrorForm = ({ isLoggedIn }) => {
+const ErrorForm = ({ isLoggedIn, errorValue }) => {
 
   let element;
   const elements = errorData.map((item) => {
-    const {id, kind, htmlFor, value, ...others} = item;
+    const {id, kind, htmlFor, value, name, ...others} = item;
     
     if(kind === "input") {
-      element = <Input {...others} />
+      element = <Input {...others} defaultValue={ errorValue[name] }/>
     } else if(kind === "textarea") {
-      element = <Textarea {...others}/>
+      element = <Textarea {...others} defaultValue={ errorValue[name] }/>
     } else {
-      element = <Select {...others}/>
+      element = <Select {...others} defaultValue={ errorValue[name] } />
     };
 
     return (

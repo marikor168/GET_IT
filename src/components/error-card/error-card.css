@@ -11,6 +11,10 @@
   justify-content: space-around;
 }
 
+.error__card:hover {
+  box-shadow: 5px 5px 5px rgba(106,148,212,0.5); 
+}
+
 .card__title {
   font-weight: bold;
   overflow: hidden;

@@ -2,7 +2,9 @@ import React from 'react';
 
 import './table.css';
 
-const Table = () => {
+const Table = ({ data }) => {
+  const elements = addRowTable(data);
+  
   return(
     <table className="table">
       <caption className="table__title">История</caption>
@@ -15,21 +17,21 @@ const Table = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>10.02.2020</td>
-          <td>Открытая</td>
-          <td>Сверстать канбан доску</td>
-          <td>Мария Короткова</td>
-        </tr>
-        <tr>
-          <td>10.02.2020</td>
-          <td>Новая</td>
-          <td>Исправить Таблицу</td>
-          <td>Александр Иксанов</td>
-        </tr>
+        { elements }
       </tbody>
     </table>
   );
 };
+
+function addRowTable (arr) {
+  return arr.map((error, i) =>
+    <tr key={i}>
+      <td>{error.date}</td>
+      <td>{error.status}</td>
+      <td>{error.error_description}</td>
+      <td>{error.user}</td>
+    </tr>
+  )
+}
 
 export default Table;

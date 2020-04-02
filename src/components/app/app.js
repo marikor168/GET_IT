@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Header from '../header';
 import ErrorForm from '../error-form';
-import Table from '../table';
+import EditError from '../edit-error';
 import LoginForm from '../login-form/';
 import Kanban from '../kanban/';
 
@@ -14,7 +14,7 @@ export default class App extends Component {
     super(props);
     this.state = {
       isLoggedIn: false,
-      username: 'Guest'
+      usernameWelcome: 'Guest'
     };
   }
 
@@ -23,7 +23,7 @@ export default class App extends Component {
 
     this.setState({
       isLoggedIn: true,
-      username: this.state.username
+      usernameWelcome: this.state.username
     });
   };
 
@@ -41,10 +41,10 @@ export default class App extends Component {
   };
 
   render() {
-    const { isLoggedIn, username } = this.state;
+    const { isLoggedIn, username, usernameWelcome } = this.state;
     return (
       <Router>
-        <Header onLogout={ this.onLogout }  username={ username }/>
+        <Header onLogout={ this.onLogout }  username={ usernameWelcome }/>
         <Switch>
           <Route 
             path="/login"
@@ -52,13 +52,10 @@ export default class App extends Component {
                             isLoggedIn={ isLoggedIn } 
                             onLogin={ this.onLogin } 
                             username={ username }
-                            onUsernameChange={ this.onUsernameChange} /> }
-          >
-          </Route>  
-          <Route exact path="/errors/:id">
-            <ErrorForm isLoggedIn={ isLoggedIn }/>
-            <Table />
-          </Route>
+                            onUsernameChange={ this.onUsernameChange} /> } />
+          <Route path="/new_error" 
+          render={() => <EditError isLoggedIn={ isLoggedIn } errorId={3}/>} />
+          {/* <Route path="/new_error" render={() => <ErrorForm isLoggedIn={ isLoggedIn } />} /> */}
           <Route path="/kanban" 
                 render={() => <Kanban isLoggedIn = { isLoggedIn } />} />
           <Route path="/" component={ Kanban } />

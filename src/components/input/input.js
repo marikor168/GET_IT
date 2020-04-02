@@ -2,15 +2,18 @@ import React from 'react';
 
 import './input.css';
 
-const Input= ( {type, name, placeholder, disabled, required, onChange } ) => {
+const Input= ( { type, name, value, defaultValue, placeholder, disabled, required, onChange, ...others } ) => {
   return (
     <input className="form__input" 
                 type={type} 
-                name={name} 
+                name={name}
+                value={value}
+                defaultValue={defaultValue} 
                 placeholder={placeholder} 
                 disabled={disabled}
                 required={required}
                 onChange={ onChange }
+                {...others}
                 />
   );
 };
