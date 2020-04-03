@@ -6,14 +6,26 @@ import { errors } from '../app/data';
 import './kanban.css';
 import { Redirect, Link } from 'react-router-dom';
 
-const Kanban = ({ isLoggedIn }) => {
+const Kanban = ({ isLoggedIn, data }) => {
 
   let newErrors = [];
   let openedErrors = [];
   let resolvedErrors = [];
   let closedErrors = []; 
 
-  errors.forEach((item) => {
+  // errors.forEach((item) => {
+  //   if (item.status === "new") {
+  //     newErrors.push(item)
+  //   } else if (item.status === "opened") {
+  //     openedErrors.push(item)
+  //   } else if (item.status === "resolved") {
+  //     resolvedErrors.push(item)
+  //   } else {
+  //     closedErrors.push(item)
+  //   }
+  // });
+  console.log(data);
+ data.forEach((item) => {
     if (item.status === "new") {
       newErrors.push(item)
     } else if (item.status === "opened") {
@@ -29,6 +41,8 @@ const Kanban = ({ isLoggedIn }) => {
   openedErrors = filterCurrentError(openedErrors);
   resolvedErrors = filterCurrentError(resolvedErrors);
   closedErrors = filterCurrentError(closedErrors);
+
+  console.log(closedErrors);
 
   if(isLoggedIn) {
     return(
@@ -64,7 +78,7 @@ const Kanban = ({ isLoggedIn }) => {
 
 function createErrorCard (arr) {
   return arr.map((error) => {
-    const path = `/new_error/${error.id}`;
+    const path = `/error/${error.id}`;
     return(
     <Link to={path} key={error.id}>
       <ErrorCard  title={error.error_name} user={error.user} priority={error.priority}/>

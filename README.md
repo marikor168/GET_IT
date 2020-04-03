@@ -72,6 +72,31 @@ App
 
 Редактирование ошибки
 -----------------------------
-!!!  Открыть ошибку можно, кликнув на её карточку в канбан-доске
-!!! Далее открывается окно с ErrorForm, но заполненной (!!! проблема в передаче данных, так как все поля собираются автоматически)
-Ниже отображается история этой ошибки (?? отсортированная по дате )
+Открыть ошибку можно, кликнув на её карточку в канбан-доске
+Далее открывается окно с ErrorForm. ErrorForm заполнена последними данными данной ошибки.
+Ниже отображается история этой ошибки.
+
+
+!!!!! Редактирую ли я имеющиеся данные? Насколько знаю, нельзя 
+
+Дата!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+let date = new Date();
+
+let optionsDate = {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit'
+};
+
+let optionsTime = {
+	timezone: 'UTC',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit'
+};
+
+let dateString = date.toLocaleString("ru", optionsDate); 
+let timeString = date.toLocaleString("ru", optionsTime); 
+
+console.log('dateString', dateString);
+console.log('timeString', timeString);

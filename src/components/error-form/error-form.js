@@ -12,18 +12,19 @@ import { errorData } from '../app/data';
 
 import './error-form.css';
 
-const ErrorForm = ({ isLoggedIn, errorValue }) => {
+const ErrorForm = ({ isLoggedIn, errorValue, saveError, onErrorChange }) => {
 
   let element;
   const elements = errorData.map((item) => {
-    const {id, kind, htmlFor, value, name, ...others} = item;
+
+    const { id, kind, htmlFor, value, name, ...others } = item;
     
     if(kind === "input") {
-      element = <Input {...others} defaultValue={ errorValue[name] }/>
+      element = <Input {...others} name={ name } defaultValue={ errorValue[name] } onChange={ onErrorChange }/>
     } else if(kind === "textarea") {
-      element = <Textarea {...others} defaultValue={ errorValue[name] }/>
+      element = <Textarea {...others} name={ name } defaultValue={ errorValue[name] } onChange={ onErrorChange }/>
     } else {
-      element = <Select {...others} defaultValue={ errorValue[name] } />
+      element = <Select {...others} name={ name } defaultValue={ errorValue[name] } onChange={ onErrorChange } />
     };
 
     return (
@@ -38,16 +39,30 @@ const ErrorForm = ({ isLoggedIn, errorValue }) => {
     return (
       <BasicForm classNameFieldset="form__wrapper" 
                   classNameLegend="form__legend"
-                  value="Ошибка (создание/редактирование)">
+                  value="Ошибка (создание/редактирование)"
+                  onSubmit={ saveError }>
         
         { elements }      
   
-        <Button value='Сохранить изменения'/>
+        <Button value='Сохранить изменения' />
       </BasicForm>
     );
   }
 
   return <Redirect to="/login" />;
 };
+
+/*
+function handleSubmit() {
+  const obj =  {
+    id: this.state.id,
+    date: new Date(),
+    ...
+  };
+
+  this.props.saveError(obj);
+
+}
+*/
 
 export default ErrorForm;
