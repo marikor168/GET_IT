@@ -22,7 +22,9 @@ const ErrorForm = ({ isLoggedIn, errorValue, saveError, onErrorChange }) => {
     if(kind === "input") {
       element = <Input {...others} name={ name } defaultValue={ errorValue[name] } onChange={ onErrorChange }/>
     } else if(kind === "textarea") {
-      element = <Textarea {...others} name={ name } defaultValue={ errorValue[name] } onChange={ onErrorChange }/>
+      element = <Textarea {...others} name={ name } 
+      // defaultValue={ errorValue[name] } 
+      onChange={ onErrorChange }/>
     } else {
       element = <Select {...others} name={ name } defaultValue={ errorValue[name] } onChange={ onErrorChange } />
     };
@@ -31,27 +33,27 @@ const ErrorForm = ({ isLoggedIn, errorValue, saveError, onErrorChange }) => {
       <FormItem key={id}>
         <FormLabel htmlFor={htmlFor} value={value} />
         {element}
+
       </FormItem>
     );   
   });
 
   if(isLoggedIn) {
-    return (
-      <BasicForm classNameFieldset="form__wrapper" 
-                  classNameLegend="form__legend"
-                  value="Ошибка (создание/редактирование)"
-                  onSubmit={ saveError }>
-        
-        { elements }      
-  
-        <Button value='Сохранить изменения' />
-      </BasicForm>
-    );
-  }
+      return (
+        <BasicForm classNameFieldset="form__wrapper" 
+                    classNameLegend="form__legend"
+                    value="Ошибка (создание/редактирование)"
+                    onSubmit={ saveError }                 
+                    >     
+          { elements }          
+          <Button value='Сохранить изменения' />
+        </BasicForm>
+      );
+    }
 
   return <Redirect to="/login" />;
-};
 
+}
 /*
 function handleSubmit() {
   const obj =  {
@@ -60,9 +62,5 @@ function handleSubmit() {
     ...
   };
 
-  this.props.saveError(obj);
-
-}
 */
-
 export default ErrorForm;

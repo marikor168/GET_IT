@@ -1,10 +1,9 @@
 import React from 'react';
+import { Redirect, Link } from 'react-router-dom';
 
 import ErrorCard from '../error-card/';
-import { errors } from '../app/data';
 
 import './kanban.css';
-import { Redirect, Link } from 'react-router-dom';
 
 const Kanban = ({ isLoggedIn, data }) => {
 
@@ -13,19 +12,7 @@ const Kanban = ({ isLoggedIn, data }) => {
   let resolvedErrors = [];
   let closedErrors = []; 
 
-  // errors.forEach((item) => {
-  //   if (item.status === "new") {
-  //     newErrors.push(item)
-  //   } else if (item.status === "opened") {
-  //     openedErrors.push(item)
-  //   } else if (item.status === "resolved") {
-  //     resolvedErrors.push(item)
-  //   } else {
-  //     closedErrors.push(item)
-  //   }
-  // });
-  console.log(data);
- data.forEach((item) => {
+  data.forEach((item) => {
     if (item.status === "new") {
       newErrors.push(item)
     } else if (item.status === "opened") {
@@ -41,8 +28,6 @@ const Kanban = ({ isLoggedIn, data }) => {
   openedErrors = filterCurrentError(openedErrors);
   resolvedErrors = filterCurrentError(resolvedErrors);
   closedErrors = filterCurrentError(closedErrors);
-
-  console.log(closedErrors);
 
   if(isLoggedIn) {
     return(

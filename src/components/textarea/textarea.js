@@ -10,6 +10,7 @@ const Textarea = ( {name, placeholder, value, defaultValue, onChange} ) => {
               defaultValue={defaultValue}
               placeholder={placeholder} 
               cols="22" rows="5"
+              required
               onChange={ onChange }>
     </textarea>
   );

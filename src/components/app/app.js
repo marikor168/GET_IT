@@ -17,9 +17,10 @@ export default class App extends Component {
     super(props);
     this.maxId = 20;
     this.state = {
-      isLoggedIn: false,
+      isLoggedIn: true,
       usernameWelcome: 'Guest',
-      data: errors
+      data: errors,
+      isErrorSaved: false
     };
   }
 
@@ -54,35 +55,62 @@ export default class App extends Component {
     });
   };
 
-/* 
-saveError = (errorObj) => {
-  saveFunc(errorObj);
-}
+  saveNewError = (event) => {
+    event.preventDefault(); 
 
-*/
+    // const id = errId !== undefined ? errId : this.maxId++;
+    // console.log('id', id);
 
-  saveError = (event) => {
+    const newError = {
+      id: this.maxId++,
+      date: setDate(), 
+      error_name: this.state.error_name,
+      error_description: this.state.error_description,
+      user: this.state.username, 
+      status: this.state.status,
+      priority: this.state.priority,
+      seriousness: this.state.seriousness,
+      current: true, 
+    }
+      
+    this.setState(({ data }) => {
+      const newArr = [
+        ...data,
+        newError
+      ];
+
+      return {
+        data: newArr,
+        isErrorSaved: true
+      };
+    });
+
+  };
+
+  saveError = (event, errId) => {
+    const { data } = this.state;
     event.preventDefault();  
 
-    let date = new Date();
-    let optionsDate = {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit'
-    };
-    let dateString = date.toLocaleString("ru", optionsDate);
-      const newError = {
-        id: this.maxId++, 
-        date: dateString, 
-        error_name: this.state.error_name,
-        error_description: this.state.error_description,
-        user: this.state.username, 
-        status: this.state.status,
-        priority: this.state.priority,
-        seriousness: this.state.seriousness,
-        current: true, 
-    }
-    console.log('state', this.state);
+    const id = errId !== undefined ? errId :  this.maxId++;
+    console.log('id', id);
+
+    const newError = {
+      id: id, 
+      date: setDate(), 
+      error_name: this.state.error_name,
+      error_description: this.state.error_description,
+      user: this.state.username, 
+      status: this.state.status,
+      priority: this.state.priority,
+      seriousness: this.state.seriousness,
+      current: true, 
+  }
+
+    data.forEach((error) => {
+      if(error.id === newError.id) {
+        error.current = false;
+      }
+    });
 
     this.setState(({ data }) => {
       const newArr = [
@@ -90,40 +118,69 @@ saveError = (errorObj) => {
         newError
       ];
 
-      console.log('newArr', [...newArr]);
-  
       return {
-        data: [...newArr]
+        data: newArr
       };
-
-    })
+    });
   };
 
   render() {
-    const { isLoggedIn, username, usernameWelcome, data } = this.state;
+    const { isLoggedIn, username, usernameWelcome, data, isErrorSaved } = this.state;
     return (
       <Router>
         <Header onLogout={ this.onLogout }  username={ usernameWelcome }/>
         <Switch>
           <Route path="/login"
-                  render={() => <LoginForm 
-                            isLoggedIn={ isLoggedIn } 
-                            onLogin={ this.onLogin } 
-                            username={ username }
-                            onUsernameChange={ this.onUsernameChange} /> } />
+                render={() => (
+                <LoginForm 
+                  isLoggedIn={ isLoggedIn } 
+                  onLogin={ this.onLogin } 
+                  username={ username }
+                  onUsernameChange={ this.onUsernameChange} />)} />
           <Route path="/error/:id" 
                 render={({ match }) => {
                 let { id } = match.params;
                 id = +id;
-                return <EditError isLoggedIn={ isLoggedIn } errorId={ id } saveError={ this.saveError } onErrorChange={ this.onErrorChange }/> 
-                }} />
+                return (
+                  <EditError 
+                    isLoggedIn={ isLoggedIn } 
+                    errorId={ id } 
+                    saveError={ (e) => this.saveError(e, id) } 
+                    onErrorChange={ this.onErrorChange } 
+                    data={ data }
+                  /> 
+                )}} />
           <Route path="/new_error" 
-                render={() => <ErrorForm isLoggedIn={ isLoggedIn } errorValue={ {} } saveError={ this.saveError } onErrorChange={ this.onErrorChange } />} />
+                render={() => (
+                <ErrorForm 
+                  isLoggedIn={ isLoggedIn } 
+                  errorValue={ {} } 
+                  saveError={ this.saveNewError } 
+                  onErrorChange={ this.onErrorChange }
+                  isErrorSaved={ isErrorSaved }/>)} />
           <Route path="/kanban" 
-                render={() => <Kanban isLoggedIn = { isLoggedIn } data={ data }/>} />
-          <Route path="/" component={ Kanban } />
+                render={() => (
+                <Kanban 
+                  isLoggedIn = { isLoggedIn } 
+                  data={ data }/>)} />
+          <Route path="/" 
+                render={() => (
+                <Kanban 
+                  isLoggedIn = { isLoggedIn } 
+                  data={ data }/>)} />
         </Switch>
       </Router>
     );
   }
+};
+
+function setDate() {
+  const date = new Date();
+    const optionsDate = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    };
+  const dateString = date.toLocaleString("ru", optionsDate);
+  return dateString;
 };
