@@ -8,7 +8,7 @@ import BasicForm from '../basic-form/';
 
 import './login-form.css';
 
-const LoginForm = ({ isLoggedIn, onLogin, username, onUsernameChange }) => {
+const LoginForm = ({ isLoggedIn, onLogin, onUsernameChange }) => {
 
   if(isLoggedIn) {
     return <Redirect to="/kanban" />

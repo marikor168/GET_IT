@@ -12,7 +12,6 @@
 .header__item {
   border-right: 1px solid #052F6D;
   background-color: rgba(106,148,212,0.15);
-  padding: 15px;
 }
 
 .header__item:last-child {
@@ -28,6 +27,8 @@
 .header__item a {
   text-decoration: none;
   color: #052F6D;
+  display: inline-block;
+  padding: 15px;
 }
 
 .header__item-username {

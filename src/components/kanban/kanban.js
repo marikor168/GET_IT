@@ -5,12 +5,17 @@ import ErrorCard from '../error-card/';
 
 import './kanban.css';
 
-const Kanban = ({ isLoggedIn, data }) => {
+const Kanban = ({ isLoggedIn
+  // data 
+}) => {
 
   let newErrors = [];
   let openedErrors = [];
   let resolvedErrors = [];
   let closedErrors = []; 
+
+  // !!!!!!! Достаю данные из localStorage
+  const data = JSON.parse(localStorage.errors);
 
   data.forEach((item) => {
     if (item.status === "new") {
