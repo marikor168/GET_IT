@@ -9,6 +9,7 @@ const Kanban = ({ isLoggedIn
   // data 
 }) => {
 
+  console.log("kanban render")
   let newErrors = [];
   let openedErrors = [];
   let resolvedErrors = [];

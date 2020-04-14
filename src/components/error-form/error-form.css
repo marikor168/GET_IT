@@ -10,7 +10,10 @@
 }
 
 .form__wrapper a {
+  display: inline-block;
   text-decoration: none;
+  min-width: 140px;
+  margin: 0 auto;
 }
 
 .form__legend {

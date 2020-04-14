@@ -18,6 +18,7 @@ export default class ErrorForm extends Component {
   constructor(props) {
     super(props);
     this.maxId = findMaxId();
+    this.saveError = this.props.saveError;
   }
 
   onErrorChange = (event) => {
@@ -28,23 +29,6 @@ export default class ErrorForm extends Component {
     });
   }; 
 
-  saveError = (newError) => {
-    const data = JSON.parse(localStorage.errors);
-
-    data.forEach((error) => {
-      if(error.id === newError.id) {
-        error.current = false;
-      }
-    });
-
-    const newArr = [
-      ...data,
-      newError
-    ];
-
-    localStorage.setItem('errors', JSON.stringify(newArr));
-  };
-
   handleSubmit = (errorId) => {
 
     const id = errorId !== undefined ? errorId : this.maxId + 1;
@@ -52,36 +36,44 @@ export default class ErrorForm extends Component {
     const newError = {
       id: id,
       date: setDate(), 
-      error_name: this.state.error_name,
-      error_description: this.state.error_description,
+      error_name: this.state.error_name !== undefined ? this.state.error_name : this.props.errorValue.error_name,
+      error_description: this.state.error_description !== undefined ? this.state.error_description : this.props.errorValue.error_description,
+      error_comment: this.state.error_comment !== undefined ? this.state.error_comment : this.props.errorValue.error_comment,
       user: localStorage.getItem('username'), 
-      status: this.state.status,
-      priority: this.state.priority,
-      seriousness: this.state.seriousness,
+      status: this.state.status !== undefined ? this.state.status : this.props.errorValue.status,
+      priority: this.state.priority !== undefined ? this.state.priority : this.props.errorValue.priority,
+      seriousness: this.state.seriousness !== undefined ? this.state.seriousness : this.props.errorValue.seriousness,
       current: true, 
     }
     this.saveError(newError);  
   }
 
   render() {
-
     const { isLoggedIn, errorValue, errorHistory } = this.props;
     const errorId = errorValue.id;
-    console.log('errorId', errorId);
 
     let element;
     const elements = errorData.map((item) => {
   
       const { id, kind, htmlFor, labelName, name, ...others } = item;
-      
       if(kind === "input") {
-        element = <Input {...others} name={ name } defaultValue={ errorValue[name] } onChange={ this.onErrorChange }/>
+        element = <Input 
+                    {...others} 
+                    name={ name } 
+                    defaultValue={ errorValue[name] } 
+                    onChange={ this.onErrorChange }/>
       } else if(kind === "textarea") {
-        element = <Textarea {...others} name={ name } 
-        // defaultValue={ errorValue[name] } 
-        onChange={ this.onErrorChange }/>
+        element = <Textarea 
+                    {...others} 
+                    name={ name } 
+                    defaultValue={ errorValue[name] } 
+                    onChange={ this.onErrorChange }/>
       } else {
-        element = <Select {...others} name={ name } defaultValue={ errorValue[name] } onChange={ this.onErrorChange } />
+        element = <Select 
+                    {...others} 
+                    name={ name } 
+                    defaultValue={ errorValue[name] } 
+                    onChange={ this.onErrorChange } />
       };
   
       return (
@@ -101,10 +93,13 @@ export default class ErrorForm extends Component {
                       // onSubmit={ this.saveNewError }                 
                       >     
             { elements }   
-            <Link to="/kanban" onClick={() => this.handleSubmit(errorId) } >       
-              <Button value='Сохранить изменения' />
-            </Link>
+            <FormItem>
+              <Link to="/kanban" onClick={() => this.handleSubmit(errorId) } >       
+                <Button value='Сохранить изменения' />
+              </Link>
+            </FormItem>
           </BasicForm>
+          {/* Если это не новая ошибка и в localStorage есть уже записи с ней, то внизу страницы появится талица с её историей */}
           { (errorHistory.length !== 0) && <Table data={ errorHistory }/> }          
         </div>
       );
@@ -113,6 +108,7 @@ export default class ErrorForm extends Component {
   }
 } 
 
+// Функция создания и формирования даты, возвращает строку
 function setDate() {
   const date = new Date();
     const optionsDate = {
@@ -124,6 +120,7 @@ function setDate() {
   return dateString;
 };
 
+// Функция, определяющая максимальный id из существующих ошибок в localStorage
 function findMaxId() {
   let idErrors = JSON.parse(localStorage.errors);
   idErrors = idErrors.map((error) => {

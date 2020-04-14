@@ -28,7 +28,7 @@ function addRowTable (arr) {
     <tr key={i}>
       <td>{error.date}</td>
       <td>{error.status}</td>
-      <td>{error.error_description}</td>
+      <td>{error.error_comment}</td>
       <td>{error.user}</td>
     </tr>
   )
