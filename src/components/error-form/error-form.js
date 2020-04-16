@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import Button from '../button/';
 import FormItem from '../form-item';
@@ -10,6 +10,7 @@ import Select from '../select';
 import BasicForm from '../basic-form/';
 import Table from '../table/';
 import { errorData } from '../app/data';
+import Modal from '../modal/';
 
 import './error-form.css';
 
@@ -19,6 +20,9 @@ export default class ErrorForm extends Component {
     super(props);
     this.maxId = findMaxId();
     this.saveError = this.props.saveError;
+    this.state = {
+      isModalShow: false
+    }
   }
 
   onErrorChange = (event) => {
@@ -29,7 +33,7 @@ export default class ErrorForm extends Component {
     });
   }; 
 
-  handleSubmit = (errorId) => {
+  handleSubmit = (event, errorId) => {
 
     const id = errorId !== undefined ? errorId : this.maxId + 1;
 
@@ -45,29 +49,64 @@ export default class ErrorForm extends Component {
       seriousness: this.state.seriousness !== undefined ? this.state.seriousness : this.props.errorValue.seriousness,
       current: true, 
     }
-    this.saveError(newError);  
+    this.setState({
+      isModalShow: true,
+    })
+
+    this.saveError(event, newError);  
   }
+
+  hideModal = () => {
+    this.setState({
+      isModalShow: false,
+    })
+  };
 
   render() {
     const { isLoggedIn, errorValue, errorHistory } = this.props;
+    const { isModalShow } = this.state;
     const errorId = errorValue.id;
-
+    
     let element;
     const elements = errorData.map((item) => {
   
       const { id, kind, htmlFor, labelName, name, ...others } = item;
       if(kind === "input") {
-        element = <Input 
-                    {...others} 
-                    name={ name } 
-                    defaultValue={ errorValue[name] } 
-                    onChange={ this.onErrorChange }/>
+        if (errorValue.error_name !== undefined ) {
+          element = <Input 
+                      {...others} 
+                      name={ name } 
+                      defaultValue={ errorValue[name] } 
+                      onChange={ this.onErrorChange }
+                      disabled={ true } />
+        } else if (name !== "id" && name !== "date" && name !== "user") {
+          element = <Input 
+                      {...others} 
+                      name={ name } 
+                      defaultValue={ errorValue[name] } 
+                      onChange={ this.onErrorChange }
+                      disabled={ false } />
+        } else {
+          element = <Input 
+                      {...others} 
+                      name={ name } 
+                      defaultValue={ errorValue[name] } 
+                      onChange={ this.onErrorChange }
+                      disabled={ true } />
+        }
       } else if(kind === "textarea") {
-        element = <Textarea 
+          if(name === "error_description") {
+            element = <Textarea 
                     {...others} 
                     name={ name } 
                     defaultValue={ errorValue[name] } 
                     onChange={ this.onErrorChange }/>
+          } else if (name === "error_comment") {
+            element = <Textarea 
+                    {...others} 
+                    name={ name } 
+                    onChange={ this.onErrorChange }/>
+          }        
       } else {
         element = <Select 
                     {...others} 
@@ -90,17 +129,16 @@ export default class ErrorForm extends Component {
           <BasicForm classNameFieldset="form__wrapper" 
                       classNameLegend="form__legend"
                       value="Ошибка (создание/редактирование)"
-                      // onSubmit={ this.saveNewError }                 
+                      onSubmit={ (event) => this.handleSubmit(event, errorId)  }                 
                       >     
             { elements }   
             <FormItem>
-              <Link to="/kanban" onClick={() => this.handleSubmit(errorId) } >       
                 <Button value='Сохранить изменения' />
-              </Link>
             </FormItem>
           </BasicForm>
           {/* Если это не новая ошибка и в localStorage есть уже записи с ней, то внизу страницы появится талица с её историей */}
-          { (errorHistory.length !== 0) && <Table data={ errorHistory }/> }          
+          { (errorHistory.length !== 0) && <Table data={ errorHistory }/> }
+          <Modal isModalShow={ isModalShow } hideModal={ this.hideModal }/>          
         </div>
       );
     }  

@@ -49,7 +49,8 @@ export default class App extends Component {
     localStorage.setItem('username', 'Guest');
   };
 
-  saveError = (newError) => {
+  saveError = (event, newError) => {
+    event.preventDefault();
     const data = JSON.parse(localStorage.errors);
 
     data.forEach((error) => {

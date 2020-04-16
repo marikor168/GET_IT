@@ -4,6 +4,7 @@ import './table.css';
 
 const Table = ({ data }) => {
   const elements = addRowTable(data);
+  console.log(data);
   
   return(
     <table className="table">

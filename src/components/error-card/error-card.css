@@ -21,6 +21,7 @@
 }
 
 .card__user {
+  overflow: hidden;
 }
 
 .card__priority {

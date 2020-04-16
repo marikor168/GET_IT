@@ -3,6 +3,38 @@ import React from 'react';
 import './select.css';
 
 const Select = ( {name, options, defaultValue, onChange } ) => {
+
+  let arrStatus = [], 
+      arrStatusNew = [],
+      arrStatusOpened = [],
+      arrStatusResolved = [],
+      arrStatusClosed = [];
+
+  if(name === "status") {
+    arrStatus = options;
+    if(defaultValue === 'new') {
+      for( let i=1; i<3; i++) {
+        arrStatusNew.push(arrStatus[i]);
+      }
+      options = arrStatusNew;
+    } else if (defaultValue === 'opened') {
+      for( let i=2; i<4; i++) {
+        arrStatusOpened.push(arrStatus[i]);
+      }
+      options = arrStatusOpened;
+    } else if (defaultValue === 'resolved') {
+      for( let i=2; i<5; i++) {
+        arrStatusResolved.push(arrStatus[i]);
+      }
+      options = arrStatusResolved;
+    } else if(defaultValue === 'closed') {
+      arrStatusClosed = [arrStatus[4]];
+      options = arrStatusClosed;
+    } else {
+      options = arrStatus;
+    }
+  }
+  
   return (
     <select className="form__select" name={name} defaultValue={defaultValue} onChange={ onChange } required>
       {options.map(opt => (

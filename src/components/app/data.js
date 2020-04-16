@@ -27,12 +27,12 @@ export const seriousnessItems = [
 
 // Поля формы создания и редактирования ошибки (input, textarea, select)
 export const errorData = [
-  {id: 1, kind: "input", htmlFor:"id", labelName:"Номер", type:"text", name: "id", placeholder: "Номер", disabled: true, required: false},
-  {id: 2, kind: "input", htmlFor:"date", labelName:"Дата", type:"text", name: "date", placeholder: "Дата", disabled: true, required: false},
-  {id: 3, kind: "input", htmlFor:"error_name", labelName:"Краткое описание ошибки", type:"text", name: "error_name", placeholder: "Краткое описание ошибки", disabled: false, required: true},
+  {id: 1, kind: "input", htmlFor:"id", labelName:"Номер", type:"text", name: "id", placeholder: "Номер", required: false},
+  {id: 2, kind: "input", htmlFor:"date", labelName:"Дата", type:"text", name: "date", placeholder: "Дата", required: false},
+  {id: 3, kind: "input", htmlFor:"error_name", labelName:"Краткое описание ошибки", type:"text", name: "error_name", placeholder: "Краткое описание ошибки", required: true},
   {id: 4, kind: "textarea", htmlFor:"error_description", labelName:"Подробное описание ошибки", type:"text", name: "error_description", placeholder: "Опишите ошибку подробно", required: false},
   {id: 5, kind: "textarea", htmlFor:"error_comment", labelName:"Комментарий", type:"text", name: "error_comment", placeholder: "Комментарий", required: true},
-  {id: 6, kind: "input", htmlFor:"user", labelName:"Пользователь", type: "text", name: "user", placeholder: "Пользователь", disabled: true, required: false},
+  {id: 6, kind: "input", htmlFor:"user", labelName:"Пользователь", type: "text", name: "user", placeholder: "Пользователь", required: false},
   {id: 7, kind: "select", htmlFor:"status", labelName:"Статус ошибки", name: "status", options: statusItems },
   {id: 8, kind: "select", htmlFor:"priority", labelName:"Приоритет", name: "priority", options: priorityItems },
   {id: 9, kind: "select", htmlFor:"seriousness", labelName:"Серьёзность", name: "seriousness", options: seriousnessItems },

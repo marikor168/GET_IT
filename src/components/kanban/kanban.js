@@ -5,11 +5,8 @@ import ErrorCard from '../error-card/';
 
 import './kanban.css';
 
-const Kanban = ({ isLoggedIn
-  // data 
-}) => {
+const Kanban = ({ isLoggedIn }) => {
 
-  console.log("kanban render")
   let newErrors = [];
   let openedErrors = [];
   let resolvedErrors = [];
