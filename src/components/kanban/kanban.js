@@ -65,6 +65,18 @@ const Kanban = ({ isLoggedIn }) => {
 };
 
 function createErrorCard (arr) {
+   // перевод на русский, так как все приложение на русском
+   arr.forEach((error) => {
+    if (error.priority === "highest") {
+      error.priority = "Очень высокий"
+    } else if (error.priority === "high") {
+      error.priority = "Высокий"
+    } else if (error.priority === "medium") {
+      error.priority = "Средний"
+    } else {
+      error.priority = "Низкий"
+    }
+  });
   return arr.map((error) => {
     const path = `/error/${error.id}`;
     return(

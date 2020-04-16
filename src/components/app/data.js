@@ -1,6 +1,6 @@
 // options для select (статус ошибки)
 export const statusItems = [
-  {value: "", descr: "Выберете статус ошибки", id: 0},
+  {value: "", descr: "Выберите статус ошибки", id: 0},
   {value: "new", descr: "Новая", id: 1},
   {value: "opened", descr: "Открытая", id: 2},
   {value: "resolved", descr: "Решенная", id: 3},
@@ -9,7 +9,7 @@ export const statusItems = [
 
 // options для select (приоритет ошибки)
 export const priorityItems = [
-  {value: "", descr: "Выберете приоритет ошибки", id: 0},
+  {value: "", descr: "Выберите приоритет ошибки", id: 0},
   {value: "highest", descr: "Очень высокий", id: 1},
   {value: "high", descr: "Высокий", id: 2},
   {value: "medium", descr: "Средний", id: 3},
@@ -18,7 +18,7 @@ export const priorityItems = [
 
 // options для select (серьёзность ошибки)
 export const seriousnessItems = [
-  {value: "", descr: "Выберете серьёзность ошибки", id: 0},
+  {value: "", descr: "Выберите серьёзность ошибки", id: 0},
   {value: "critical", descr: "Критичная", id: 1},
   {value: "significant", descr: "Значительная", id: 2},
   {value: "insignificant", descr: "Незначительная", id: 3},
