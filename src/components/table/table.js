@@ -1,12 +1,61 @@
 import React from 'react';
 
-import './table.css';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { Table, 
+  TableBody, 
+  TableCell, 
+  TableContainer, 
+  TableHead, 
+  TableRow, 
+  Paper } from '@material-ui/core';
 
-const Table = ({ data }) => {
+
+// import './table.css';
+const StyledTableCell = withStyles((theme) => ({
+  
+  head: {
+    fontSize: 15,
+    backgroundColor: "#3f51b5",
+    color: '#ffffff',
+  },
+  body: {
+    fontSize: 14
+  },
+}))(TableCell);
+
+const MyTable = ({ data }) => {
+  const useStyles = makeStyles({
+    table: {
+      minWidth: 600,
+      maxWidth: 1000,
+      marginTop: 20,
+      marginBottom: 30,
+    },
+  });
+
+  const classes = useStyles();
   const elements = addRowTable(data);
   
   return(
-    <table className="table">
+    <TableContainer align="center">
+    <Paper elevation={10} className={classes.table} >
+      <Table>
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>Дата</StyledTableCell>
+            <StyledTableCell>Действие</StyledTableCell>
+            <StyledTableCell>Комментарий</StyledTableCell>
+            <StyledTableCell>Пользователь</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {elements}
+        </TableBody>
+      </Table>
+    </Paper>
+
+    {
+      /* <table className="table">
       <caption className="table__title">История</caption>
       <thead>
         <tr>
@@ -19,34 +68,33 @@ const Table = ({ data }) => {
       <tbody>
         { elements }
       </tbody>
-    </table>
+    </table> */
+  }
+    </TableContainer>
   );
 };
 
+function translate(label) {
+  if (label === "new") {
+    return "Новая";
+  } else if (label === "opened") {
+    return "Открытая";
+  } else if (label === "resolved") {
+    return "Решённая";
+  } else {
+    return "Закрытая";
+  }
+}
+
 function addRowTable (arr) {
-
-  // перевод на русский, так как все приложение на русском
-  arr.forEach((error) => {
-    if (error.status === "new") {
-      error.status = "Новая"
-    } else if (error.status === "opened") {
-      error.status = "Открытая"
-    } else if (error.status === "resolved") {
-      error.status = "Решённая"
-    } else {
-      error.status = "Закрытая"
-    }
-  });
-
   return arr.map((error, i) =>
-  
-    <tr key={i}>
-      <td>{error.date}</td>
-      <td>{error.status}</td>
-      <td>{error.error_comment}</td>
-      <td>{error.user}</td>
-    </tr>
+    <TableRow key={i}>
+      <StyledTableCell>{error.date}</StyledTableCell>
+      <StyledTableCell>{translate(error.status)}</StyledTableCell>
+      <StyledTableCell>{error.error_comment}</StyledTableCell>
+      <StyledTableCell>{error.user}</StyledTableCell>
+    </TableRow>
   )
 }
 
-export default Table;
+export default MyTable;

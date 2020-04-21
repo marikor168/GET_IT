@@ -9,13 +9,16 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(106,148,212,0.3);
+  /* background-color: rgba(106,148,212,0.3); */
+  background-color: rgba(159, 168, 218, 0.3);
 }
 
 .modal {
   width: 350px;
   height: 150px;
-  background-color: rgba(106,148,212,1);
+  /* background-color: rgba(106,148,212,1);
+   */
+   background-color: #3f51b5;
   box-shadow: 5px 5px 5px rgba(106,148,212,0.7); 
   border-radius: 3px;
   z-index: 11;
@@ -36,6 +39,7 @@
 
 .modal__text {
   color: #ffffff;
+  /* color: #3f51b5; */
   font-size: 20px;
 }
 
@@ -64,8 +68,11 @@
   color:  #052F6D;
   width: 30%;
   cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .modal__btn:hover {
-  box-shadow: 5px 5px 5px rgba(106,148,212,0.5); 
+  /* box-shadow: 5px 5px 5px rgba(106,148,212,0.5);  */
+  background-color: #c5cae9;
 }

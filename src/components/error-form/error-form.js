@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
-import Button from '../button/';
+// import Button from '../button/';
 import FormItem from '../form-item';
 import FormLabel from '../form-label';
-import Textarea from '../textarea';
-import Input from '../input/';
-import Select from '../select';
+import MyTextarea from '../textarea';
+import MyInput from '../input/';
+import MySelect from '../select';
 import BasicForm from '../basic-form/';
-import Table from '../table/';
+import MyTable from '../table/';
 import { errorData } from '../app/data';
 import Modal from '../modal/';
+
+import { Button } from '@material-ui/core';
+import SaveAltIcon from '@material-ui/icons/SaveAlt';
+// import { TextField } from '@material-ui/core';
 
 import './error-form.css';
 
@@ -26,8 +30,10 @@ export default class ErrorForm extends Component {
   }
 
   onErrorChange = (event) => {
+    console.log(event);
     const name = event.target.name;
     const value = event.target.value;
+
     this.setState({
       [name]: value
     });
@@ -63,6 +69,7 @@ export default class ErrorForm extends Component {
   };
 
   render() {
+    console.log("PROPRS", this.props);
     const { isLoggedIn, errorValue, errorHistory } = this.props;
     const { isModalShow } = this.state;
     const errorId = errorValue.id;
@@ -72,49 +79,50 @@ export default class ErrorForm extends Component {
   
       const { id, kind, htmlFor, labelName, name, ...others } = item;
       if(kind === "input") {
+        
+        let disabled;
         if (errorValue.error_name !== undefined ) {
-          element = <Input 
-                      {...others} 
-                      name={ name } 
-                      defaultValue={ errorValue[name] } 
-                      onChange={ this.onErrorChange }
-                      disabled={ true } />
+          disabled = true;
         } else if (name !== "id" && name !== "date" && name !== "user") {
-          element = <Input 
-                      {...others} 
-                      name={ name } 
-                      defaultValue={ errorValue[name] } 
-                      onChange={ this.onErrorChange }
-                      disabled={ false } />
+          disabled = false;
         } else {
-          element = <Input 
+          disabled = true;
+        }
+        element = <MyInput 
                       {...others} 
                       name={ name } 
-                      defaultValue={ errorValue[name] } 
+                      defaultValue={ this.state[name] || errorValue[name] || "" } 
                       onChange={ this.onErrorChange }
-                      disabled={ true } />
-        }
+                      disabled={ disabled } 
+                      label={ labelName }/>
       } else if(kind === "textarea") {
+        let defValue;
           if(name === "error_description") {
-            element = <Textarea 
-                    {...others} 
-                    name={ name } 
-                    defaultValue={ errorValue[name] } 
-                    onChange={ this.onErrorChange }/>
+            defValue = errorValue[name];
           } else if (name === "error_comment") {
-            element = <Textarea 
+            defValue = null;
+          }
+          element = <MyTextarea 
                     {...others} 
                     name={ name } 
-                    onChange={ this.onErrorChange }/>
-          }        
+                    defaultValue={ this.state[name] || defValue || ""} 
+                    onChange={ this.onErrorChange }
+                    label={labelName}
+                    />        
       } else {
-        element = <Select 
+        let value = "";
+        if ( errorValue[name] !== undefined) {
+            value = errorValue[name];
+        }
+        element = <MySelect 
                     {...others} 
                     name={ name } 
-                    defaultValue={ errorValue[name] } 
-                    onChange={ this.onErrorChange } />
-      };
-  
+                    value={ this.state[name] || errorValue[name] || ""} 
+                    // defaultValue={ value } 
+                    onChange={ this.onErrorChange } 
+                    label={labelName}
+                    />
+      };  
       return (
         <FormItem key={id}>
           <FormLabel htmlFor={htmlFor} value={labelName} />
@@ -125,19 +133,31 @@ export default class ErrorForm extends Component {
   
     if(isLoggedIn) {
       return (
-        <div>
-          <BasicForm classNameFieldset="form__wrapper" 
+        <div className="errorFormTop">
+          <BasicForm classNamePaper="form__wrapper" 
                       classNameLegend="form__legend"
                       value="Ошибка (создание/редактирование)"
                       onSubmit={ (event) => this.handleSubmit(event, errorId)  }                 
-                      >     
-            { elements }   
-            <FormItem>
-                <Button value='Сохранить изменения' />
-            </FormItem>
+                      >
+            {/* <div className="wrapperInputs"> */}
+              { elements }   
+            {/* </div>      */}
+            {/* <FormItem> */}
+              <Button
+                variant="contained"
+                color="primary"
+                size="medium"
+                type="submit"
+                className="form__btn"
+                startIcon={<SaveAltIcon />}
+              >
+                Сохранить изменения
+              </Button>
+                {/* <Button value='Сохранить изменения' /> */}
+            {/* </FormItem> */}
           </BasicForm>
           {/* Если это не новая ошибка и в localStorage есть уже записи с ней, то внизу страницы появится талица с её историей */}
-          { (errorHistory.length !== 0) && <Table data={ errorHistory }/> }
+          { (errorHistory.length !== 0) && <MyTable data={ errorHistory }/> }
           <Modal isModalShow={ isModalShow } hideModal={ this.hideModal }/>          
         </div>
       );

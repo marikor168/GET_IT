@@ -1,6 +1,8 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 
+import { Paper } from '@material-ui/core';
+
 import ErrorCard from '../error-card/';
 
 import './kanban.css';
@@ -35,13 +37,34 @@ const Kanban = ({ isLoggedIn }) => {
   if(isLoggedIn) {
     return(
       <div className="kanban">
+
+        <Paper elevation={15} className="kanban__section">Новая</Paper>
+        <Paper elevation={15} className="kanban__section">Открытая</Paper>
+        <Paper elevation={15} className="kanban__section">Решённая</Paper>
+        <Paper elevation={15} className="kanban__section">Закрытая</Paper>
+        
+        <Paper elevation={15} className="kanban__section">
+          { createErrorCard(newErrors) }
+        </Paper>
+
+        <Paper elevation={15} className="kanban__section">
+          { createErrorCard(openedErrors) }
+        </Paper>
+
+        <Paper elevation={15} className="kanban__section">
+          { createErrorCard(resolvedErrors) }
+        </Paper>
+
+        <Paper elevation={15} className="kanban__section">
+          { createErrorCard(closedErrors) }
+        </Paper>
   
-        <div className="kanban__section">Новая</div>
+        {/* <div className="kanban__section">Новая</div>
         <div className="kanban__section">Открытая</div>
         <div className="kanban__section">Решённая</div>
-        <div className="kanban__section">Закрытая</div>
+        <div className="kanban__section">Закрытая</div> */}
         
-        <div className="kanban__section">
+        {/* <div className="kanban__section">
         { createErrorCard(newErrors) }
         </div>
   
@@ -55,7 +78,7 @@ const Kanban = ({ isLoggedIn }) => {
   
         <div className="kanban__section">
           { createErrorCard(closedErrors) }
-        </div>
+        </div> */}
   
       </div>
     );
@@ -64,24 +87,28 @@ const Kanban = ({ isLoggedIn }) => {
   return <Redirect to="/login" />;
 };
 
+function translate(label) {
+  if (label === "highest") {
+    return "Очень высокий";
+  } else if (label === "high") {
+    return "Высокий";
+  } else if (label === "medium") {
+    return "Средний";
+  } else {
+    return "Низкий";
+  }
+};
+
 function createErrorCard (arr) {
-   // перевод на русский, так как все приложение на русском
-   arr.forEach((error) => {
-    if (error.priority === "highest") {
-      error.priority = "Очень высокий"
-    } else if (error.priority === "high") {
-      error.priority = "Высокий"
-    } else if (error.priority === "medium") {
-      error.priority = "Средний"
-    } else {
-      error.priority = "Низкий"
-    }
-  });
+   
   return arr.map((error) => {
     const path = `/error/${error.id}`;
     return(
     <Link to={path} key={error.id}>
-      <ErrorCard  title={error.error_name} user={error.user} priority={error.priority}/>
+      <ErrorCard  
+        title={error.error_name} 
+        user={error.user} 
+        priority={translate(error.priority)}/>
     </Link>
   );
   });

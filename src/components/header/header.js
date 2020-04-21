@@ -1,27 +1,49 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import { makeStyles } from '@material-ui/core/styles';
+import { 
+  AppBar, 
+  Toolbar,
+  Typography,
+  Button,
+} from '@material-ui/core';
 import './header.css';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  title: {
+    flexGrow: 1,
+  },
+  button: {
+    color: "#ffffff",
+    textDecoration: "none",
+    marginRight: theme.spacing(2),
+  },
+}));
+
 const Header = ({ onLogout, username }) => {
+  const classes = useStyles();
+
   return (
-    <nav>
-      <div className="header">
-        <div className="header__item-username">
-          Добро пожаловать, { username }!
-        </div>
-        <div className="header__item-wrapper">
-          <div className="header__item">
-            <Link to="/new_error">Ввод новой ошибки</Link>
-          </div>
-          <div className="header__item">
-            <Link to="/kanban">Доска ошибок</Link>
-          </div>
-          <div className="header__item" onClick={ onLogout }>
-            <Link to="/login">Выход из системы</Link>          
-          </div>
-        </div>
-      </div>
+    <nav className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" className={classes.title}>
+            Добро пожаловать, { username }!
+          </Typography>
+          <Button >
+            <Link className={classes.button} to="/new_error">Ввод новой ошибки</Link>
+          </Button>
+          <Button>
+            <Link className={classes.button} to="/kanban">Доска ошибок</Link>
+          </Button>
+          <Button onClick={ onLogout }>
+            <Link className={classes.button} to="/login">Выход из системы</Link>
+          </Button>
+        </Toolbar>
+      </AppBar>
     </nav>
   );
 };

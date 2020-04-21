@@ -19,3 +19,16 @@
 .form__legend {
   font-size: 20px;
 }
+/* 
+.wrapperInputs {
+  display: flex;
+  direction: column;
+  width: 100%;
+} */
+.form__btn {
+  margin: 25px 0 !important; 
+}
+
+.errorFormTop {
+  margin-top: 40px;
+}

@@ -1,10 +1,11 @@
 .error__card {
   width: 90%;
   height: 107px;
-  border: 1px solid #052F6D;
+  border: 1px solid #9fa8da;
   margin: 10px auto;
-  padding: 5px;
-  background-color: #FFF;
+  padding: 10px 5px;
+  background-color: #e8eaf6;
+  /* background-color: #ffffff; */
   border-radius: 3px;
   display: flex;
   flex-direction: column;
@@ -12,18 +13,24 @@
 }
 
 .error__card:hover {
-  box-shadow: 5px 5px 5px rgba(106,148,212,0.5); 
+  /* box-shadow: 5px 5px 5px rgba(106,148,212,0.5);  */
+  background-color: #c5cae9;
+
 }
 
 .card__title {
-  font-weight: bold;
+  /* font-weight: bold; */
   overflow: hidden;
+  font-size: 15px;
 }
 
 .card__user {
   overflow: hidden;
+  font-size: 13px;
 }
 
 .card__priority {
-  font-size: 12px;
+  font-size: 13px;
+  margin-bottom: 12px;
+  color: #9e9e9e;
 }
