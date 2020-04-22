@@ -1,38 +1,38 @@
 import React from 'react';
 
-import { makeStyles } from "@material-ui/core/styles";
+// import { makeStyles } from "@material-ui/core/styles";
 import {
-  Card,
-  CardActions,
-  CardContent,
-  Button,
-  Typography
+  // Card,
+  // CardActions,
+  // CardContent,
+  // Button,
+  // Typography
 } from '@material-ui/core';
 
 import './error-card.css';
 
-const useStyles = makeStyles({
-  root: {
-    // minWidth: 275,
-    marginBottom: '10px',
-    width: '90%',
-    height: '107px',
-  },
-  title: {
-    fontSize: 15,
-    overflow: 'hidden',
-  },
-  prior: {
-    marginBottom: 12,
-    fontSize: 13,
-  },
-  user: {
-    fontSize: 13,
-  }
-});
+// const useStyles = makeStyles({
+//   root: {
+//     // minWidth: 275,
+//     marginBottom: '10px',
+//     width: '90%',
+//     height: '107px',
+//   },
+//   title: {
+//     fontSize: 15,
+//     overflow: 'hidden',
+//   },
+//   prior: {
+//     marginBottom: 12,
+//     fontSize: 13,
+//   },
+//   user: {
+//     fontSize: 13,
+//   }
+// });
 
 const ErrorCard = ( {title, user, priority} ) => {
-  const classes = useStyles();
+  // const classes = useStyles();
   return (
     // <Card className={classes.root} variant="outlined">
     //   <CardContent 

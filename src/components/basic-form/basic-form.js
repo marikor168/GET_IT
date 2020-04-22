@@ -2,26 +2,26 @@ import React from 'react';
 
 import {
   Paper,
-  Grid, 
-  FormLabel,
-  FormControlLabel
+  // Grid, 
+  // FormLabel,
+  // FormControlLabel
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import './basic-form.css';
 
-const useStyles = makeStyles((theme) => ({
-  loginBlock: {
-    // minWidth: 300,
-    // maxWidth: 500,
-    width: 400,
-    height: 250,
-    // marginTop: 0,
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   loginBlock: {
+//     // minWidth: 300,
+//     // maxWidth: 500,
+//     width: 400,
+//     height: 250,
+//     // marginTop: 0,
+//   },
+// }));
 
 const BasicForm = ( {classNamePaper, classNameLegend, value, children, onSubmit } ) => {
-  const classes = useStyles();
-
+  // const classes = useStyles();
+console.log(children);
   return (
     <div>
     <Paper elevation={22} className={ classNamePaper }>

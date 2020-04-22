@@ -1,15 +1,17 @@
 import React from 'react';
 
-import { TextField, TextareaAutosize  } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { 
+  // TextField, 
+  TextareaAutosize  } from '@material-ui/core';
+// import { makeStyles } from '@material-ui/core/styles';
 
 import './textarea.css';
 
-const useStyles = makeStyles({
-  textarea: {
-    borderRadius: '3px',
-  },
-});
+// const useStyles = makeStyles({
+//   textarea: {
+//     borderRadius: '3px',
+//   },
+// });
 
 const MyTextarea = ( {name, placeholder, value, defaultValue, required, onChange, label, ...others} ) => {
   // const classes = useStyles();
@@ -34,7 +36,7 @@ const MyTextarea = ( {name, placeholder, value, defaultValue, required, onChange
       required={ required }
       onChange={ onChange }
       name={ name }
-      multiline
+      // multiline
       rows={4}
       // className={classes.textarea}
       className="textarea"

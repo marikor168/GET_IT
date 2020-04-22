@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-import { Paper, Button } from '@material-ui/core';
+// import { Paper, Button } from '@material-ui/core';
 import './modal.css';
 
 const Modal = ({ isModalShow, hideModal }) => {

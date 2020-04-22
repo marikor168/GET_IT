@@ -76,6 +76,8 @@ export default class ErrorForm extends Component {
     
     let element;
     const elements = errorData.map((item) => {
+
+      console.log('item', item);
   
       const { id, kind, htmlFor, labelName, name, ...others } = item;
       if(kind === "input") {
@@ -109,19 +111,16 @@ export default class ErrorForm extends Component {
                     onChange={ this.onErrorChange }
                     label={labelName}
                     />        
-      } else {
-        let value = "";
-        if ( errorValue[name] !== undefined) {
-            value = errorValue[name];
-        }
+      } else if(kind === "select") {
+        let {options} = item;
+        const value = this.state[name] || errorValue[name] || "";
+
         element = <MySelect 
-                    {...others} 
+                    options={ lifeCycle(name, value, options) }
                     name={ name } 
-                    value={ this.state[name] || errorValue[name] || ""} 
-                    // defaultValue={ value } 
+                    value={ value } 
                     onChange={ this.onErrorChange } 
-                    label={labelName}
-                    />
+                  />
       };  
       return (
         <FormItem key={id}>
@@ -187,3 +186,28 @@ function findMaxId() {
   const maxId = idErrors.length === 0 ? 1 : Math.max(...idErrors);
   return maxId;
 };
+
+// Life cycle of error
+function lifeCycle(name, value, options) {
+  
+  let arr = [];
+  if(name === "status") {
+    if(value === 'new') {
+      arr = options.filter(opt => opt.value === "new" || opt.value === "opened");
+    } 
+    else if (value === 'opened') {
+      arr = options.filter(opt => opt.value === "opened" || opt.value === "resolved");
+    } else if (value === 'resolved') {
+      arr = options.filter(opt => opt.value !== "new");
+    } else if(value === 'closed') {
+      arr = options.filter(opt => opt.value === "closed");       
+    } else {
+      arr = options.slice();
+    }
+  }
+  else if(name === "priority" || name === "seriousness") {
+    arr = options.slice();
+  }  
+
+  return arr;
+}
