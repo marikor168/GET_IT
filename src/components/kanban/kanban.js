@@ -14,7 +14,7 @@ const Kanban = ({ isLoggedIn }) => {
   let resolvedErrors = [];
   let closedErrors = []; 
 
-  // !!!!!!! Достаю данные из localStorage
+  // Take data from a localStorage
   const data = JSON.parse(localStorage.errors);
 
   data.forEach((item) => {
@@ -58,27 +58,6 @@ const Kanban = ({ isLoggedIn }) => {
         <Paper elevation={15} className="kanban__section">
           { createErrorCard(closedErrors) }
         </Paper>
-  
-        {/* <div className="kanban__section">Новая</div>
-        <div className="kanban__section">Открытая</div>
-        <div className="kanban__section">Решённая</div>
-        <div className="kanban__section">Закрытая</div> */}
-        
-        {/* <div className="kanban__section">
-        { createErrorCard(newErrors) }
-        </div>
-  
-        <div className="kanban__section">
-        { createErrorCard(openedErrors) }
-        </div>
-  
-        <div className="kanban__section">
-          { createErrorCard(resolvedErrors) }
-        </div>
-  
-        <div className="kanban__section">
-          { createErrorCard(closedErrors) }
-        </div> */}
   
       </div>
     );

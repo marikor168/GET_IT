@@ -8,7 +8,9 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "babel-plugin-transform-es2015-arrow-functions": "^6.22.0",
     "react": "^16.13.1",
+    "react-app-polyfill": "^1.0.6",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1"
@@ -29,9 +31,15 @@
       "not op_mini all"
     ],
     "development": [
+      "ie > 8",
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+      
+
     ]
+  },
+  "devDependencies": {
+    "@gerhobbelt/babel-plugin-transform-arrow-functions": "^7.2.1-26"
   }
 }

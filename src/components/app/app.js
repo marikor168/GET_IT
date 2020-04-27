@@ -6,13 +6,13 @@ import ErrorForm from '../error-form';
 import LoginForm from '../login-form/';
 import Kanban from '../kanban/';
 
-// если захочу попробовать с тестовым набором данных
+// if you want to try this app with test data don't forget import this
 // import { errors } from './data';
 
 import './app.css'; 
 
-// Если localStorage изначально пуст, то добавляем первую запись, чтобы не возникла ошибка
-// Данная запись не будет видна
+// If localStorage is initially empty, then add the first record so that there is no error
+// This entry will not be visible
 if(localStorage.getItem('errors') === null) {
   localStorage.setItem('errors', JSON.stringify([{id: 0}]));
 }
@@ -21,8 +21,8 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false,
-      // Есть тестовый массив ошибок
+      isLoggedIn: true,
+      // This is test data
       // data: errors,
     };
   }
@@ -74,7 +74,7 @@ export default class App extends Component {
   render() {
     const { isLoggedIn, username } = this.state;
 
-    // !!!!!!!!!!!! Если захочется попробовать с тестовым массивом ошибок, необходимо его загрузить в localStorage
+    // !!!! If you want to try with a test array of errors, you need to load it into localStorage
     // localStorage.setItem('errors', JSON.stringify(this.state.data));
 
     const usernameWelcome = isLoggedIn ? localStorage.getItem('username') : 'Guest';

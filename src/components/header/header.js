@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import { makeStyles } from '@material-ui/core/styles';
-import { 
-  AppBar, 
+import { AppBar, 
   Toolbar,
   Typography,
-  Button,
-} from '@material-ui/core';
+  Button } from '@material-ui/core';
+
 import './header.css';
 
 const useStyles = makeStyles((theme) => ({

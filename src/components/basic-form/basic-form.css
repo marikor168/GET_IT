@@ -4,17 +4,14 @@ form {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  /* padding: 20px 0;  */
 }
 
 .form__title {
   text-align: center;
   font-size: 25px;
-  /* color: #1a237e; */
   color: #303f9f;
   font-weight: 500;
-  padding-top: 20px;
+  padding-top: 30px;
+  padding-bottom: 20px;
   margin: 0;
-  /* margin-bottom: 20px;
-  margin-top: 0; */
 }

@@ -1,6 +1,5 @@
 .textarea {
-  border-radius: 3px,
-
+  border-radius: 3px;
 }
 
 .textarea:hover {
@@ -9,5 +8,4 @@
 
 .textarea:focus {
   border-bottom: 2px solid #1a237e;
-  /* background-color: #e8eaf6; */
 }

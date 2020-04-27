@@ -2,17 +2,16 @@ import React from 'react';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Table, 
-  TableBody, 
-  TableCell, 
   TableContainer, 
   TableHead, 
+  TableBody, 
+  TableCell, 
   TableRow, 
   Paper } from '@material-ui/core';
 
+import './my-table.css';
 
-// import './table.css';
-const StyledTableCell = withStyles((theme) => ({
-  
+const StyledTableCell = withStyles((theme) => ({  
   head: {
     fontSize: 15,
     backgroundColor: "#3f51b5",
@@ -23,53 +22,37 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
+const useStyles = makeStyles({
+  table: {
+    minWidth: 600,
+    maxWidth: 1000,
+    marginTop: 20,
+    marginBottom: 30,
+  },
+});
+
 const MyTable = ({ data }) => {
-  const useStyles = makeStyles({
-    table: {
-      minWidth: 600,
-      maxWidth: 1000,
-      marginTop: 20,
-      marginBottom: 30,
-    },
-  });
 
   const classes = useStyles();
   const elements = addRowTable(data);
   
   return(
     <TableContainer align="center">
-    <Paper elevation={10} className={classes.table} >
-      <Table>
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Дата</StyledTableCell>
-            <StyledTableCell>Действие</StyledTableCell>
-            <StyledTableCell>Комментарий</StyledTableCell>
-            <StyledTableCell>Пользователь</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {elements}
-        </TableBody>
-      </Table>
-    </Paper>
-
-    {
-      /* <table className="table">
-      <caption className="table__title">История</caption>
-      <thead>
-        <tr>
-          <th>Дата</th>
-          <th>Действие</th>
-          <th>Комментарий</th>
-          <th>Пользователь</th>
-        </tr>
-      </thead>
-      <tbody>
-        { elements }
-      </tbody>
-    </table> */
-  }
+      <Paper elevation={10} className={classes.table} >
+        <Table>
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Дата</StyledTableCell>
+              <StyledTableCell>Действие</StyledTableCell>
+              <StyledTableCell>Комментарий</StyledTableCell>
+              <StyledTableCell>Пользователь</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {elements}
+          </TableBody>
+        </Table>
+      </Paper>
     </TableContainer>
   );
 };

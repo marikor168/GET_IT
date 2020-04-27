@@ -1,31 +1,28 @@
-// options для select (статус ошибки)
+// options for select (status of error)
 export const statusItems = [
-  // {value: "", descr: "Выберите статус ошибки", id: 0},
   {value: "new", descr: "Новая", id: 1},
   {value: "opened", descr: "Открытая", id: 2},
   {value: "resolved", descr: "Решенная", id: 3},
   {value: "closed", descr: "Закрытая", id: 4},
 ];
 
-// options для select (приоритет ошибки)
+// options for select (priority of error)
 export const priorityItems = [
-  // {value: "", descr: "Выберите приоритет ошибки", id: 0},
   {value: "highest", descr: "Очень высокий", id: 1},
   {value: "high", descr: "Высокий", id: 2},
   {value: "medium", descr: "Средний", id: 3},
   {value: "low", descr: "Низкий", id: 4},
 ];
 
-// options для select (серьёзность ошибки)
+// options for select (seriousness of error)
 export const seriousnessItems = [
-  // {value: "", descr: "Выберите серьёзность ошибки", id: 0},
   {value: "critical", descr: "Критичная", id: 1},
   {value: "significant", descr: "Значительная", id: 2},
   {value: "insignificant", descr: "Незначительная", id: 3},
   {value: "change", descr: "Запрос на изменение", id: 4},
 ];
 
-// Поля формы создания и редактирования ошибки (input, textarea, select)
+// DATA of fields in the ErrorForm (input, textarea, select)
 export const errorData = [
   {id: 1, kind: "input", htmlFor:"id", labelName:"Номер", type:"text", name: "id", placeholder: "Номер", required: false},
   {id: 2, kind: "input", htmlFor:"date", labelName:"Дата", type:"text", name: "date", placeholder: "Дата", required: false},

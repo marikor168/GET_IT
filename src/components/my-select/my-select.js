@@ -2,10 +2,9 @@ import React from 'react';
 
 import { Select, MenuItem } from '@material-ui/core';
 
-import './select.css';
+import './my-select.css';
 
 const MySelect = (  { name, options, value, onChange } ) => {
-console.log('optionsSelect', options);
   return (
     <Select name={name} value={value} onChange={ onChange }>
       {options.map(opt => (

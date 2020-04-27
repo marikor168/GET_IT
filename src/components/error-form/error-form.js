@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
-// import Button from '../button/';
 import FormItem from '../form-item';
 import FormLabel from '../form-label';
-import MyTextarea from '../textarea';
-import MyInput from '../input/';
-import MySelect from '../select';
+import MyTextarea from '../my-textarea';
+import MyInput from '../my-input';
+import MySelect from '../my-select';
+import MyTable from '../my-table';
 import BasicForm from '../basic-form/';
-import MyTable from '../table/';
-import { errorData } from '../app/data';
 import Modal from '../modal/';
+
+import { errorData } from '../app/data';
 
 import { Button } from '@material-ui/core';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
-// import { TextField } from '@material-ui/core';
 
 import './error-form.css';
 
@@ -69,25 +68,25 @@ export default class ErrorForm extends Component {
   };
 
   render() {
-    console.log("PROPRS", this.props);
     const { isLoggedIn, errorValue, errorHistory } = this.props;
     const { isModalShow } = this.state;
     const errorId = errorValue.id;
     
     let element;
+    // errorData is array where you can find information about all fields in the errorForm
+    // ( kind = input || textarea || select, name, labelName ... )
     const elements = errorData.map((item) => {
-
-      console.log('item', item);
   
       const { id, kind, htmlFor, labelName, name, ...others } = item;
+
       if(kind === "input") {
         
-        let disabled;
-        if (errorValue.error_name !== undefined ) {
-          disabled = true;
-        } else if (name !== "id" && name !== "date" && name !== "user") {
-          disabled = false;
-        } else {
+        // "disabled" parameter is assigned dynamically.
+        // This parameter should be "true" if "input" is for id of error,
+        // for date, for name of user and if you edit error (because this error already have the name). 
+        // Id and date are set automatically. Name of user is set from localStorage (when user is log in) 
+        let disabled = false;
+        if (name === "id" || name === "date" || name === "user" || errorValue.error_name !== undefined) {
           disabled = true;
         }
         element = <MyInput 
@@ -95,9 +94,12 @@ export default class ErrorForm extends Component {
                       name={ name } 
                       defaultValue={ this.state[name] || errorValue[name] || "" } 
                       onChange={ this.onErrorChange }
-                      disabled={ disabled } 
-                      label={ labelName }/>
+                      disabled={ disabled } />
+
       } else if(kind === "textarea") {
+        // "defValue" parameter is assigned dynamically too.
+        // We have two textareas: for description of error and comment.
+        // "Textarea" for comment should be a required if you edit the error. So when you open the error to edit it, this field should be empty.
         let defValue;
           if(name === "error_description") {
             defValue = errorValue[name];
@@ -108,10 +110,11 @@ export default class ErrorForm extends Component {
                     {...others} 
                     name={ name } 
                     defaultValue={ this.state[name] || defValue || ""} 
-                    onChange={ this.onErrorChange }
-                    label={labelName}
-                    />        
+                    onChange={ this.onErrorChange } />        
+
       } else if(kind === "select") {
+        // "Select" is responsible for the error life cycle.
+        // The life cycle of the error is described in the task.
         let {options} = item;
         const value = this.state[name] || errorValue[name] || "";
 
@@ -119,8 +122,7 @@ export default class ErrorForm extends Component {
                     options={ lifeCycle(name, value, options) }
                     name={ name } 
                     value={ value } 
-                    onChange={ this.onErrorChange } 
-                  />
+                    onChange={ this.onErrorChange } />
       };  
       return (
         <FormItem key={id}>
@@ -132,31 +134,23 @@ export default class ErrorForm extends Component {
   
     if(isLoggedIn) {
       return (
-        <div className="errorFormTop">
-          <BasicForm classNamePaper="form__wrapper" 
-                      classNameLegend="form__legend"
+        <div>
+          <BasicForm classNamePaper="form__wrapper"
                       value="Ошибка (создание/редактирование)"
-                      onSubmit={ (event) => this.handleSubmit(event, errorId)  }                 
-                      >
-            {/* <div className="wrapperInputs"> */}
-              { elements }   
-            {/* </div>      */}
-            {/* <FormItem> */}
-              <Button
-                variant="contained"
-                color="primary"
-                size="medium"
-                type="submit"
-                className="form__btn"
-                startIcon={<SaveAltIcon />}
-              >
-                Сохранить изменения
-              </Button>
-                {/* <Button value='Сохранить изменения' /> */}
-            {/* </FormItem> */}
+                      onSubmit={ (event) => this.handleSubmit(event, errorId) } >
+            { elements }   
+            <Button
+              variant="contained"
+              color="primary"
+              size="medium"
+              type="submit"
+              className="form__btn"
+              startIcon={<SaveAltIcon />}>Сохранить изменения</Button>
           </BasicForm>
-          {/* Если это не новая ошибка и в localStorage есть уже записи с ней, то внизу страницы появится талица с её историей */}
+
+          {/*If this is not a new error and localStorage already has entries with it, then at the bottom of the page there will be a table with its history */}
           { (errorHistory.length !== 0) && <MyTable data={ errorHistory }/> }
+
           <Modal isModalShow={ isModalShow } hideModal={ this.hideModal }/>          
         </div>
       );
@@ -165,7 +159,7 @@ export default class ErrorForm extends Component {
   }
 } 
 
-// Функция создания и формирования даты, возвращает строку
+// The function of creating and forming a date, returns a string
 function setDate() {
   const date = new Date();
     const optionsDate = {
@@ -177,7 +171,7 @@ function setDate() {
   return dateString;
 };
 
-// Функция, определяющая максимальный id из существующих ошибок в localStorage
+// Function that determines the maximum id of existing errors in localStorage
 function findMaxId() {
   let idErrors = JSON.parse(localStorage.errors);
   idErrors = idErrors.map((error) => {

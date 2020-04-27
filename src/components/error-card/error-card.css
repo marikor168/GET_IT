@@ -5,7 +5,6 @@
   margin: 10px auto;
   padding: 10px 5px;
   background-color: #e8eaf6;
-  /* background-color: #ffffff; */
   border-radius: 3px;
   display: flex;
   flex-direction: column;
@@ -13,13 +12,10 @@
 }
 
 .error__card:hover {
-  /* box-shadow: 5px 5px 5px rgba(106,148,212,0.5);  */
   background-color: #c5cae9;
-
 }
 
 .card__title {
-  /* font-weight: bold; */
   overflow: hidden;
   font-size: 15px;
 }
