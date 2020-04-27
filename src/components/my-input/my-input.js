@@ -4,7 +4,7 @@ import { TextField } from '@material-ui/core';
 
 import './my-input.css';
 
-const MyInput= ( { type, name, value, defaultValue, placeholder, disabled, required, onChange, ...others } ) => {
+const MyInput= ( { type, name, value, defaultValue, placeholder, disabled, required, onChange } ) => {
   return (
      <TextField
       type={type} 

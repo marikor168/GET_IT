@@ -1,4 +1,5 @@
 import React from 'react';
+import { translateStatus } from '../app/utils';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Table, 
@@ -18,7 +19,10 @@ const StyledTableCell = withStyles((theme) => ({
     color: '#ffffff',
   },
   body: {
-    fontSize: 14
+    fontSize: 14,
+    maxWidth: 250,
+    overflow: "hidden",
+    wordWrap: "break-word"
   },
 }))(TableCell);
 
@@ -28,6 +32,8 @@ const useStyles = makeStyles({
     maxWidth: 1000,
     marginTop: 20,
     marginBottom: 30,
+    overflow: "hidden",
+
   },
 });
 
@@ -57,23 +63,11 @@ const MyTable = ({ data }) => {
   );
 };
 
-function translate(label) {
-  if (label === "new") {
-    return "Новая";
-  } else if (label === "opened") {
-    return "Открытая";
-  } else if (label === "resolved") {
-    return "Решённая";
-  } else {
-    return "Закрытая";
-  }
-}
-
 function addRowTable (arr) {
   return arr.map((error, i) =>
     <TableRow key={i}>
       <StyledTableCell>{error.date}</StyledTableCell>
-      <StyledTableCell>{translate(error.status)}</StyledTableCell>
+      <StyledTableCell>{translateStatus(error.status)}</StyledTableCell>
       <StyledTableCell>{error.error_comment}</StyledTableCell>
       <StyledTableCell>{error.user}</StyledTableCell>
     </TableRow>

@@ -6,6 +6,8 @@ import ErrorForm from '../error-form';
 import LoginForm from '../login-form/';
 import Kanban from '../kanban/';
 
+import { getItemLS, setItemLS } from './utils';
+
 // if you want to try this app with test data don't forget import this
 // import { errors } from './data';
 
@@ -13,8 +15,8 @@ import './app.css';
 
 // If localStorage is initially empty, then add the first record so that there is no error
 // This entry will not be visible
-if(localStorage.getItem('errors') === null) {
-  localStorage.setItem('errors', JSON.stringify([{id: 0}]));
+if (getItemLS('errors') === null) {
+  setItemLS('errors', [{id: 0}])
 }
 export default class App extends Component {
 
@@ -33,7 +35,8 @@ export default class App extends Component {
     this.setState({
       isLoggedIn: true
     });
-    localStorage.setItem('username', this.state.username);
+
+    setItemLS('username', this.state.username);
   };
 
   onUsernameChange = (event) => {
@@ -46,12 +49,14 @@ export default class App extends Component {
     this.setState({
       isLoggedIn: false,
     });
-    localStorage.setItem('username', 'Guest');
+    setItemLS('username', 'Guest');
   };
 
   saveError = (event, newError) => {
     event.preventDefault();
-    const data = JSON.parse(localStorage.errors);
+
+    // get Item form localStorage
+    const data = getItemLS('errors');
 
     data.forEach((error) => {
       if(error.id === newError.id) {
@@ -64,11 +69,12 @@ export default class App extends Component {
       newError
     ];
 
-    localStorage.setItem('errors', JSON.stringify(newArr));
+    // set item to localStorage
+    setItemLS('errors', newArr);
   };
 
   componentDidMount() {
-    localStorage.setItem('username', 'Guest');
+    setItemLS('username', 'Guest');
   };
 
   render() {
@@ -77,7 +83,7 @@ export default class App extends Component {
     // !!!! If you want to try with a test array of errors, you need to load it into localStorage
     // localStorage.setItem('errors', JSON.stringify(this.state.data));
 
-    const usernameWelcome = isLoggedIn ? localStorage.getItem('username') : 'Guest';
+    const usernameWelcome = isLoggedIn ? getItemLS('username') : 'Guest';
 
     return (
       <Router>
@@ -89,10 +95,10 @@ export default class App extends Component {
                   isLoggedIn={ isLoggedIn } 
                   onLogin={ this.onLogin } 
                   username={ username }
-                  onUsernameChange={ this.onUsernameChange} />)} />
+                  onUsernameChange={ this.onUsernameChange } />)} />
           <Route exact path="/error/:id"
                 render={({ match }) => {
-                  const data = JSON.parse(localStorage.errors);
+                  const data = getItemLS('errors');
                   let { id } = match.params;
                   id = +id;
                   const elements = data.filter((error) => error.id === id);
@@ -129,3 +135,4 @@ export default class App extends Component {
     );
   }
 };
+

@@ -23,7 +23,7 @@ export const seriousnessItems = [
 ];
 
 // DATA of fields in the ErrorForm (input, textarea, select)
-export const errorData = [
+export const errorFieldsSetup = [
   {id: 1, kind: "input", htmlFor:"id", labelName:"Номер", type:"text", name: "id", placeholder: "Номер", required: false},
   {id: 2, kind: "input", htmlFor:"date", labelName:"Дата", type:"text", name: "date", placeholder: "Дата", required: false},
   {id: 3, kind: "input", htmlFor:"error_name", labelName:"Краткое описание ошибки", type:"text", name: "error_name", placeholder: "Краткое описание ошибки", required: true},

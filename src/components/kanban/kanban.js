@@ -4,35 +4,21 @@ import { Redirect, Link } from 'react-router-dom';
 import { Paper } from '@material-ui/core';
 
 import ErrorCard from '../error-card/';
+import { translatePriority, filterCurrentError, filterErrors, getItemLS } from '../app/utils';
 
 import './kanban.css';
 
 const Kanban = ({ isLoggedIn }) => {
 
-  let newErrors = [];
-  let openedErrors = [];
-  let resolvedErrors = [];
-  let closedErrors = []; 
+  // Get data from a localStorage
+  const data = getItemLS('errors');
 
-  // Take data from a localStorage
-  const data = JSON.parse(localStorage.errors);
+  const errors = filterErrors(data);
 
-  data.forEach((item) => {
-    if (item.status === "new") {
-      newErrors.push(item)
-    } else if (item.status === "opened") {
-      openedErrors.push(item)
-    } else if (item.status === "resolved") {
-      resolvedErrors.push(item)
-    } else {
-      closedErrors.push(item)
-    }
-  });
-
-  newErrors = filterCurrentError(newErrors);
-  openedErrors = filterCurrentError(openedErrors);
-  resolvedErrors = filterCurrentError(resolvedErrors);
-  closedErrors = filterCurrentError(closedErrors);
+  const newErrors = filterCurrentError(errors.newErrors);
+  const openedErrors = filterCurrentError(errors.openedErrors);
+  const resolvedErrors = filterCurrentError(errors.resolvedErrors);
+  const closedErrors = filterCurrentError(errors.closedErrors);
 
   if(isLoggedIn) {
     return(
@@ -44,19 +30,19 @@ const Kanban = ({ isLoggedIn }) => {
         <Paper elevation={15} className="kanban__section">Закрытая</Paper>
         
         <Paper elevation={15} className="kanban__section">
-          { createErrorCard(newErrors) }
+          { createKanbanSection(newErrors) }
         </Paper>
 
         <Paper elevation={15} className="kanban__section">
-          { createErrorCard(openedErrors) }
+          { createKanbanSection(openedErrors) }
         </Paper>
 
         <Paper elevation={15} className="kanban__section">
-          { createErrorCard(resolvedErrors) }
+          { createKanbanSection(resolvedErrors) }
         </Paper>
 
         <Paper elevation={15} className="kanban__section">
-          { createErrorCard(closedErrors) }
+          { createKanbanSection(closedErrors) }
         </Paper>
   
       </div>
@@ -66,19 +52,7 @@ const Kanban = ({ isLoggedIn }) => {
   return <Redirect to="/login" />;
 };
 
-function translate(label) {
-  if (label === "highest") {
-    return "Очень высокий";
-  } else if (label === "high") {
-    return "Высокий";
-  } else if (label === "medium") {
-    return "Средний";
-  } else {
-    return "Низкий";
-  }
-};
-
-function createErrorCard (arr) {
+function createKanbanSection (arr) {
    
   return arr.map((error) => {
     const path = `/error/${error.id}`;
@@ -87,14 +61,10 @@ function createErrorCard (arr) {
       <ErrorCard  
         title={error.error_name} 
         user={error.user} 
-        priority={translate(error.priority)}/>
+        priority={translatePriority(error.priority)} />
     </Link>
   );
   });
-};
-
-function filterCurrentError(arr) {
-  return arr.filter((error) => error.current === true);
 };
 
 export default Kanban;

@@ -10,7 +10,8 @@ import MyTable from '../my-table';
 import BasicForm from '../basic-form/';
 import Modal from '../modal/';
 
-import { errorData } from '../app/data';
+import { setDate, findMaxId } from '../app/utils';
+import { errorFieldsSetup } from '../app/data';
 
 import { Button } from '@material-ui/core';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
@@ -72,9 +73,9 @@ export default class ErrorForm extends Component {
     const errorId = errorValue.id;
     
     let element;
-    // errorData is array where you can find information about all fields in the errorForm
+    // errorFieldsSetup is array where you can find information about all fields in the errorForm
     // ( kind = input || textarea || select, name, labelName ... )
-    const elements = errorData.map((item) => {
+    const elements = errorFieldsSetup.map((item) => {
   
       const { id, kind, htmlFor, labelName, name, ...others } = item;
 
@@ -157,28 +158,6 @@ export default class ErrorForm extends Component {
     return <Redirect to="/login" />;
   }
 } 
-
-// The function of creating and forming a date, returns a string
-function setDate() {
-  const date = new Date();
-    const optionsDate = {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit'
-    };
-  const dateString = date.toLocaleString("ru", optionsDate);
-  return dateString;
-};
-
-// Function that determines the maximum id of existing errors in localStorage
-function findMaxId() {
-  let idErrors = JSON.parse(localStorage.errors);
-  idErrors = idErrors.map((error) => {
-    return error.id;
-  });  
-  const maxId = idErrors.length === 0 ? 1 : Math.max(...idErrors);
-  return maxId;
-};
 
 // Life cycle of error
 function lifeCycle(name, value, options) {
