@@ -29,7 +29,6 @@ export default class ErrorForm extends Component {
   }
 
   onErrorChange = (event) => {
-    console.log(event);
     const name = event.target.name;
     const value = event.target.value;
 
@@ -118,7 +117,7 @@ export default class ErrorForm extends Component {
         let {options} = item;
         const value = this.state[name] || errorValue[name] || "";
 
-        element = <MySelect 
+        element = <MySelect
                     options={ lifeCycle(name, value, options) }
                     name={ name } 
                     value={ value } 

@@ -21,7 +21,7 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: true,
+      isLoggedIn: false,
       // This is test data
       // data: errors,
     };

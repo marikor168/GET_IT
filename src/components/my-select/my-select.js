@@ -4,7 +4,7 @@ import { Select, MenuItem } from '@material-ui/core';
 
 import './my-select.css';
 
-const MySelect = (  { name, options, value, onChange } ) => {
+const MySelect = (  { name, options, value, onChange,} ) => {
   return (
     <Select name={name} value={value} onChange={ onChange }>
       {options.map(opt => (
