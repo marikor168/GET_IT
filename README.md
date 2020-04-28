@@ -30,11 +30,13 @@ GET IT
 Запуск приложения 
 -----------------------------
 Для запуска приложения необходимо скачать код из репозитория и запустить с помощью команды npm start. 
-Или вы можете познакомиться с данным приложением по https://codesandbox.io/s/github/marikor168/GET_IT?file=/src/index.js.
+Или вы можете познакомиться с данным приложением здесь https://codesandbox.io/s/github/marikor168/GET_IT?file=/src/index.js.
+Для удобства откройте приложение в новом окне (Open In New Window).
 
 При запуске приложения появляется страница ввода имени и пароля пользователя. 
 Ввод данных обязателен. Пока пользователь не пройдёт аутентификацию, он не будет иметь доступ к другим страницам приложения.
 - ВАЖНО! Система  не подразумевает обеспечение безопасности приложения.
+
 После ввода данных пользователь автоматически перенаправлется на страницу с канбан-доской.  
 Теперь пользователь может вводить новые ошибки, редактировать существующие и просматривать их историю.
 Когда пользователь нажимает "Выход из системы", он попадает на страницу ввода имени и пароля пользователя и больше не имеет доступ к данным приложения. 
@@ -100,11 +102,13 @@ Usage
 -------------------
 
 To run the application, you need to download the code from the repository and run it using the npm start command.
-Or you can watch this app on https://codesandbox.io/s/github/marikor168/GET_IT?file=/src/index.js.
+Or you can watch this app here https://codesandbox.io/s/github/marikor168/GET_IT?file=/src/index.js.
+Open in new window.
 
 When the application starts, you can see the page for entering the user name and password appears.
 Until the user passes authentication, he will not have access to pages of the application.
 - WARNING! The system does not imply security for the application.
+
 After entering the data, the user is automatically redirected to the kanban board.
 The user can enter new errors, edit them and record their history.
 When the user clicks "Logout", he goes to the login page.
