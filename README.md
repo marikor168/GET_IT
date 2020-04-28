@@ -30,7 +30,7 @@ GET IT
 Запуск приложения 
 -----------------------------
 Для запуска приложения необходимо скачать код из репозитория и запустить с помощью команды npm start. 
-Или вы можете познакомиться с данным приложением по !!! ССЫЛКЕ !!!.
+Или вы можете познакомиться с данным приложением по https://codesandbox.io/s/github/marikor168/GET_IT?file=/src/index.js.
 
 При запуске приложения появляется страница ввода имени и пароля пользователя. 
 Ввод данных обязателен. Пока пользователь не пройдёт аутентификацию, он не будет иметь доступ к другим страницам приложения.
@@ -100,7 +100,7 @@ Usage
 -------------------
 
 To run the application, you need to download the code from the repository and run it using the npm start command.
-Or you can watch this app on !!! LINK !!!.
+Or you can watch this app on https://codesandbox.io/s/github/marikor168/GET_IT?file=/src/index.js.
 
 When the application starts, you can see the page for entering the user name and password appears.
 Until the user passes authentication, he will not have access to pages of the application.

@@ -15,6 +15,7 @@
 .header__item {
   border-right: 1px solid #1a237e;
   text-transform: uppercase;
+  height: 50px;
 }
 
 .header__item:last-child {
